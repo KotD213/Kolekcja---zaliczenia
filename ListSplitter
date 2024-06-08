@@ -1,0 +1,39 @@
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+public class ListSplitter {
+
+    public static List<List<String>> createLists(final List<String> inputList, final int minSize, final int maxSize) {
+        List<List<String>> result = new ArrayList<>();
+        List<String> currentList = new ArrayList<>();
+
+        for (String element : inputList) {
+            if (currentList.size() + element.length() <= maxSize) {
+                currentList.add(element);
+            } else {
+                if (currentList.size() >= minSize) {
+                    result.add(currentList);
+                }
+                currentList = new ArrayList<>();
+                currentList.add(element);
+            }
+        }
+
+        if (currentList.size() >= minSize) {
+            result.add(currentList);
+        }
+
+        return result;
+    }
+
+    public static void main(String[] args) {
+        List<String> inputList = Arrays.asList("abcdefghijklmnoprstuwxyz".split(""));
+        int minSize = 4;
+        int maxSize = 7;
+
+        List<List<String>> result = createLists(inputList, minSize, maxSize);
+
+        System.out.println(result);
+    }
+}
